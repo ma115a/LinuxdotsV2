@@ -1,0 +1,88 @@
+* {
+    
+    font-size: 17px;
+    font-family: "JetBrainsMono NF";
+    border-radius: 0px;
+    margin: 0;
+    font-weight: bold;
+}
+window#waybar {
+    background: transparent;
+    color: #ebdbb2;
+}
+
+tooltip {
+    background: #282828;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #1d2021;
+}
+
+#clock, #battery, #network, #pulseaudio, #bluetooth, #tray, #backlight, #workspaces, #taskbar, #custom-notifications, #idle_inhibitor, #custom-powermenu, #custom-wallpaper_changer {
+    background: #32302f;
+    padding: 0 0.5em;
+    margin: 4px 4px 4px 4px;
+    border-radius: 6px;
+}
+
+#pulseaudio.input.source-muted, #pulseaudio.output.muted, #custom-powermenu, #bluetooth.off, #network.disabled{
+    color: #cc241d;
+}
+
+#battery.charging, #battery.plugged {
+    color: rgba(152, 151, 26, 0.9)
+}
+
+#battery.warning {
+    color: #d65d0e;
+}
+
+#battery.critical {
+    color: #cc241d;
+}
+
+
+#custom-notifications, #idle_inhibitor, #custom-powermenu {
+    padding-right: 0.8em;
+}
+
+#custom-wallpaper_changer {
+    padding-right: .95em;
+}
+
+#custom-powermenu {
+    margin-right: 5;
+}
+
+#workspaces {
+    /* background: transparent; */
+    margin: 1px;
+    margin-left: .3rem;
+    margin-right: .3rem;
+    padding: 0;
+}
+
+#workspaces button, #taskbar button {
+    color: #d4be98;
+    font-weight: bolder;
+    font-style: normal;
+    margin: .2rem .1rem;
+    border-radius: 6px;
+}
+
+#workspaces button:hover, #taskbar button:hover{
+    box-shadow: inherit;
+    text-shadow: inherit;
+    background-color: #d4be98;
+    color: #45403d;
+    border-radius: 6px;
+}
+
+#workspaces button.active{
+    color: #ebdbb2;
+    background-color: rgba(152, 151, 26, 0.9);
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.818);
+    transition: all .1s ease-in-out;
+    border-radius: 6px;
+}

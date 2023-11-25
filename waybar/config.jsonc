@@ -1,0 +1,189 @@
+{
+    "layer": "top",
+    "position": "top",
+    "exclusive": true,
+    "gtk-layer-shell": true,
+    "passthrough": false,
+
+
+    "modules-right": [
+        "custom/notifications",
+        "idle_inhibitor",
+        "pulseaudio#output",
+        "pulseaudio#input",
+        "backlight",
+        "tray",
+        // "network",
+        // "bluetooth",
+        "battery",
+        "custom/powermenu"
+    ],
+
+    "modules-left": [
+        "hyprland/workspaces",
+        "wlr/taskbar"
+    ],
+
+    "modules-center": [
+        "custom/wallpaper_changer",
+        "clock"
+    ],
+
+    "tray": {
+        "icon-size": 21,
+        "spacing": 10
+      },
+
+      "custom/notifications": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+        "notification": "<span foreground='red'><sup></sup></span>",
+        "none": "",
+        "dnd-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-none": "",
+        "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "inhibited-none": "",
+        "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+        "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.2; swaync-client -t",
+        "on-click-right": "swaync-client -d"
+    },
+
+    "custom/wallpaper_changer": {
+        "tooltip": false,
+        "format": "",
+        "on-click": "~/.config/waybar/scripts/wallpaper.sh"
+    },
+
+    "custom/powermenu": {
+        "tooltip": false,
+        "format": "⏻",
+        "on-click": "sleep 0.2; wlogout"
+    },
+
+    "clock": {
+        "tooltip": true,
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "format": "\uf017 {:%H:%M}",
+        "format-alt": "{:%A, %B %e %Y}",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "weeks-pos": "right",
+            "on-scroll": 1,
+            "format": {
+                "months": "<span><b>{}</b></span>",
+                "days": "<span><b>{}</b></span>",
+                "today": "<span><b><u>{}</u></b></span>"
+            }
+        },
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        }
+    },
+
+    "battery": {
+        "interval": 15,
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format": "{icon}",
+        "format-charging": " ",
+        "format-plugged": "󱞜",
+        "tooltip": true,
+        "tooltip-format": "{capacity}% | {timeTo}",
+        "format-alt": "{icon} {power} W",
+        "states": {
+            "warning": 30,
+            "critical": 10
+        }
+    },
+
+    "bluetooth": {
+        "format-disabled": "",
+        "format-on": "󰂯 On",
+        "format-off": "󰂲 Off",
+        "format-connected": "󰂱 {device_alias}",
+        "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}% 󰥉",
+        "on-click": "hyprctl dispatch exec -- [float] kitty --hold sh -c bluetuith"
+    },
+
+    "pulseaudio#output": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "\uf025 {volume}%",
+        "format-bluetooth-muted": "\uf6a9 Muted",
+        "format-muted": "\uf6a9 Muted",
+        "format-icons": {
+            "default": [
+              "\uf026",
+              "\uf027",
+              "\uf028"
+            ]
+          },
+        "on-click": "hyprctl dispatch exec [float] pavucontrol",
+        "on-click-right": "pamixer -t", 
+        "scroll-step": 5,
+        "on-scroll-up": "pamixer -i 5 --set-limit 100",
+        "on-scroll-down": "pamixer -d 5"
+    },
+
+    "pulseaudio#input": {
+        "format": "{format_source}",
+        "format-source": "\uf130 {volume}%",
+        "format-source-muted": "\uf131 Muted",
+        "on-click-right": "pamixer -t --default-source",
+        "on-scroll-down": "pamixer -d 5 --default-source",
+        "on-scroll-up": "pamixer -i 5 --default-source"
+    },
+
+    "backlight": {
+        "format": "{icon}{percent}%",
+        "format-icons": [" ", " ", " ", " ", " ", " ", " ", " ", " "],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false
+    },
+
+    "hyprland/workspaces" : {
+        "format": "{icon}",
+        "format-active": "{icon}",
+        "on-click": "activate",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+
+    "wlr/taskbar" : {
+        "format": "{icon}",
+        "icon-size": 17,
+        "icon-theme": "gruvbox-dark-icons-gtk",
+        "all-outputs": true,
+        "on-click": "activate",
+        "on-click-middle": "close"
+    },
+
+    "network": {
+        "format-icons": ["󰤟", "󰤢", "󰤥", "󰤨"],
+        "format-wifi": "{icon} {essid} [{signalStrength}%]",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰤭 Disconnected",
+        "format-disabled": "󰤭 Off",
+        "tooltip-format": "Down: {bandwidthDownBytes} | Up: {bandwidthUpBytes}",
+        "on-click": "sleep 0.2; rofi-wifi-menu.sh",
+        "on-click-right": "hyprctl dispatch exec -- [float] kitty --hold sh -c nmtui"
+    },
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    }
+}
